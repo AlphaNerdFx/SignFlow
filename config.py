@@ -1,13 +1,12 @@
+# config.py
 import os
 
-# --- THE CONTRACT ---
 IMG_SIZE = 64
 CHANNELS = 1
 MODEL_PATH = "signflow_model.h5"
-LABELS_PATH = "labels.json"  # <--- New Pointer
+LABELS_PATH = "labels.json"
 
-# --- APP SETTINGS ---
-ROI_BOX_SIZE = 300
+# Thresholds
+CONFIDENCE_THRESHOLD = 0.80  # <--- Requirement #3 (80% confidence)
 HISTORY_LENGTH = 10
-CONFIDENCE_THRESHOLD = 8
-USE_MEDIAPIPE = False
+SMOOTHING_THRESHOLD = 8
