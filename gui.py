@@ -9,7 +9,7 @@ from inference import SignPredictor
 class SignFlowApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("SignFlow - ASL Translator")
+        self.root.title("SignFlow - ASL Translator (Landmark Edition)")
         self.root.geometry("900x700")
         
         # Modules
@@ -48,38 +48,42 @@ class SignFlowApp:
         if not self.is_running:
             return
             
-        # 1. Get Image
-        frame, roi = self.camera.get_frame()
+        # 1. Get Frame and Data
+        # hand_data is now a LIST of 42 coordinates, NOT an image
+        frame, hand_data = self.camera.get_frame()
         
         if frame is not None:
             # 2. Prediction Step
             predicted_char = None
-            if roi is not None and roi.size > 0:
-                raw_char, prob = self.predictor.predict(roi)
+            
+            # Check if we have valid coordinate data
+            if hand_data is not None and len(hand_data) > 0:
+                raw_char, prob = self.predictor.predict(hand_data)
                 predicted_char = self.predictor.get_stable_prediction(raw_char)
                 
                 # Update "Detecting" Label
-                disp_text = f"Detecting: {raw_char} ({prob:.2f})" if raw_char else "Detecting: ..."
-                self.prediction_label.config(text=disp_text)
+                if raw_char:
+                    disp_text = f"Detecting: {raw_char} ({prob:.2f})"
+                    self.prediction_label.config(text=disp_text, fg="green")
+                else:
+                    self.prediction_label.config(text="Low Confidence...", fg="orange")
+            else:
+                self.prediction_label.config(text="Show Hand", fg="red")
 
             # 3. Handle Text Logic
             if predicted_char and predicted_char != self.last_predicted_char:
                 self._handle_typing(predicted_char)
                 self.last_predicted_char = predicted_char
             elif predicted_char is None:
-                 # Reset last char if hand is moved/unstable, allowing double letters (e.g. L... L)
-                 # Note: Requires a brief moment of instability to re-type the same letter
                  pass
 
             # 4. Update Video in GUI
-            # Convert BGR (OpenCV) to RGB (Tkinter)
             cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             img = Image.fromarray(cv2image)
             imgtk = ImageTk.PhotoImage(image=img)
             self.video_label.imgtk = imgtk
             self.video_label.configure(image=imgtk)
 
-        # Loop roughly every 30ms (~33 FPS)
         self.root.after(30, self.update_loop)
 
     def _handle_typing(self, char):
@@ -92,7 +96,6 @@ class SignFlowApp:
         else:
             self.current_sentence += char
             
-        # Update text box
         self.text_output.delete("1.0", tk.END)
         self.text_output.insert(tk.END, self.current_sentence)
 
