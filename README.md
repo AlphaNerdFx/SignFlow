@@ -142,4 +142,4 @@ Contributions are welcome! Please open an issue or submit a pull request.
 
 ## 📧 Contact
 
-For questions or collaboration opportunities, reach out at bhmounir04@gmail.com
+For questions or collaboration opportunities, reach out at bhmounir04@gmail.com or yousseflarbiprofessional@gmail.com
