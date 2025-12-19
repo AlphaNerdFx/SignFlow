@@ -6,7 +6,7 @@
 ![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-red?style=for-the-badge&logo=opencv&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Prototype-yellow?style=for-the-badge)
 
-**SignFlow** is an assistive technology application designed to bridge the communication gap between the Deaf/Hard-of-Hearing community and non-signers. It leverages **Computer Vision** and **Deep Learning** to translate American Sign Language (ASL) gestures into text and speech in real-time.
+**SignFlow** is an assistive technology application designed to bridge the communication gap between the Deaf/Hard-of-Hearing community and non-signers. It leverages **Computer Vision** and **Deep Learning** to translate American Sign Language gestures into text and speech in real-time.
 
 ---
 
@@ -76,51 +76,55 @@ SignFlow/
 
 ---
 
-## ⚙️ Installation & Setup
+##⚙️ Installation & Setup
 
-### Prerequisites
+Prerequisites
 
-- Python 3.8 - 3.11 (Python 3.12 is not yet supported by MediaPipe)
-- A Webcam (or Camo Studio)
+Operating System: Windows 10 or 11.
 
-### 1. Clone the Repository
-```bash
+- Python: You must have Python 3.10 installed.
+During installation, ensure "Add Python to PATH" is checked.
+Webcam: Any standard built-in or external USB webcam.
+
+1. Clone the Repository
+```
 git clone https://github.com/YourUsername/SignFlow.git
 cd SignFlow
 ```
-
-### 2. Create a Virtual Environment (Recommended)
-```bash
-# Windows
-python -m venv venv
-.\venv\Scripts\activate
-
-# Mac/Linux
-python3 -m venv venv
-source venv/bin/activate
-```
-
-### 3. Install Dependencies
-```bash
-pip install customtkinter opencv-python mediapipe tensorflow pyttsx3 pillow
-```
-
-### 4. Run the Application
-```bash
-python code/main_gui.py
-```
-
+2. Launch the Application (One-Click Setup)
+The project includes an automated setup script for ease of use.
+a. Navigate to the cloned SignFlow directory.
+b. Double-click START_APP.bat.
+c. This script will automatically:
+  - Check for Python 3.10.
+  - Create a dedicated Python virtual environment (env/).
+  - Install all necessary Python dependencies (TensorFlow, MediaPipe, CustomTkinter, etc.) into the virtual environment.
+  - Launch main_gui.py.
+    
+Note: The first launch will take a few minutes to set up the environment and download libraries. Subsequent launches will be significantly faster.
 ---
+## ⚠️ Troubleshooting Common Issues
+1. "DLL Load Failed" or TensorFlow Crash
+Cause: Your system is missing essential Microsoft Visual C++ Runtime libraries.
+Fix: We have included the required installer. Double-click vc_redist.x64.exe in the project root, install it, and restart your computer.
 
+2. "Python 3.10 is missing!" Error
+Cause: The START_APP.bat script could not find Python 3.10 on your system.
+Fix: Manually install Python 3.10 from python.org/downloads/release/python-31011/ and ensure "Add Python to PATH" is selected during installation.
+
+3. Black Camera Screen
+Cause: The application might be trying to access the wrong camera index (e.g., a virtual camera, or a non-existent one).
+Fix: In the application's sidebar, use the "Video Source" dropdown to try different camera indices (e.g., Camera 0, Camera 1). Ensure your webcam is not in use by another application.
 ## 🧪 Usage Guide
 
-1. **Select Camera:** Use the dropdown menu to select your input device (0 for Laptop Webcam, 1 for External/Camo).
-2. **Choose Mode:**
-   - Use Spell Mode to type your name.
-   - Switch to Talk Mode for common phrases.
-3. **Signing:** Hold a sign steady for 0.5 seconds to confirm it. The progress bar/logic will lock it in.
-4. **Speech:** Press the Green "Speak" button to hear the sentence.
-
+1. Select Camera: Choose your active webcam from the "Video Source" dropdown in the sidebar.
+2. Choose Mode:
+3. Click "🔤 Spell Mode" for letter-by-letter translation (e.g., typing a name).
+4. Click "💬 Talk Mode" for recognizing common words or phrases.
+5. Click "🚀 Hybrid Mode" to switch dynamically (if implemented in your brain_engine).
+6. Signing: Position your hand clearly in front of the camera. Hold a sign steady for approximately 0.5 seconds for the system to confirm and type it.
+7. Speech Output: Click the "🔊 SPEAK" button to hear the current translated sentence.
+8. Transcript Control: Use "⌫ BACKSPACE" to delete the last character or "🗑 CLEAR ALL" to reset the transcript.
 ---
 
 ## 📊 Dataset Sources
@@ -138,8 +142,10 @@ This project is licensed under the MIT License.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please open an issue or submit a pull request.
+Contributions are welcome! Feel free to open an issue or submit a pull request on our GitHub repository.
 
 ## 📧 Contact
 
-For questions or collaboration opportunities, reach out at bhmounir04@gmail.com or yousseflarbiprofessional@gmail.com
+For questions or collaboration opportunities, reach out to the project authors:
+- Youssef Larbi: yousseflarbiprofessional@gmail.com
+- Mounir: bhmounir04@gmail.com
